@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Form Validation with DHTML</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-width: 400px;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .form-control label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-control input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+        .success {
+            color: green;
+            font-size: 14px;
+            display: none;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Form Validation</h1>
+    <form id="registrationForm">
+        <div class="form-control">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+            <span class="error" id="usernameError">Username is required</span>
+        </div>
+        <div class="form-control">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email">
+            <span class="error" id="emailError">Invalid email address</span>
+        </div>
+        <div class="form-control">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+            <span class="error" id="passwordError">Password must be at least 6 characters</span>
+        </div>
+        <button type="button" onclick="validateForm()">Submit</button>
+        <p class="success" id="successMessage">Form submitted successfully!</p>
+    </form>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            const usernameError = document.getElementById("usernameError");
+            const emailError = document.getElementById("emailError");
+            const passwordError = document.getElementById("passwordError");
+            const successMessage = document.getElementById("successMessage");
+
+            usernameError.style.display = "none";
+            emailError.style.display = "none";
+            passwordError.style.display = "none";
+            successMessage.style.display = "none";
+
+            if (username === "") {
+                usernameError.style.display = "block";
+                isValid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.style.display = "block";
+                isValid = false;
+            }
+
+            if (password.length < 6) {
+                passwordError.style.display = "block";
+                isValid = false;
+            }
+
+            if (isValid) {
+                successMessage.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
